@@ -23,13 +23,13 @@ def search(text):
         search_cmd(text)
 
 def search_cmd(text):
-    os.system(""" start chrome  "? {}" """.format(text))
+    os.system(""" start firefox  "? {}" """.format(text))
 
 def open_url(url):
-    os.system(""" start chrome "{}" """.format(url))
+    os.system(""" start firefox "{}" """.format(url))
 
 def search_youtube(key):
-    os.system(""" start chrome "https://www.youtube.com/results?search_query={}" """.format(key))
+    os.system(""" start firefox "https://www.youtube.com/results?search_query={}" """.format(key))
 
 
 

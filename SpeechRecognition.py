@@ -28,18 +28,15 @@ def textTospeech(text):
     engine.say(text)
     engine.runAndWait()
 
-
-
-
-
 if __name__ == '__main__':
-    """
+
     text=speech()
     print(text)
     """
     text = "Sorry Unable to recognize any command try including" + '\n\n' + "search than sentence you want to search " + '\n' + "open than filename" + '\n' + ''
 
     textTospeech(text)
+    """
 
 
 

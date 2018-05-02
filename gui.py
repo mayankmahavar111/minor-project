@@ -1,6 +1,7 @@
 import os
 import tkinter as tk
 from assistant import assist
+from reminder import checkReminder
 
 def hello():
     print("Hello World")
@@ -15,7 +16,7 @@ if __name__ == '__main__':
     panel.pack(side="top", fill="both", expand="yes")
 
     play = tk.Button(root,command=helloCommand,text="speak",width=20)
-
+    checkReminder()
 
     play.pack()
 

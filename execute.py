@@ -18,9 +18,10 @@ def check(location):
 
 def displayresult(result):
     for i in range(len(result)):
-        text= str(i+1)+" : "+ str(result[i][3]) + "\t location is :"+result[i][2].split('\\')[-1]
+        text= str(i+1)+" : "+ str(result[i][1]) + "\t location is :"+result[i][2].split('\\')[-1]
         print(text)
-        textTospeech(text)
+        textTospeech("location is ")
+        textTospeech(text.split(":")[-1])
 
 """
 def getResult(file,db):
@@ -119,18 +120,58 @@ def document(file,db):
         print(path)
         os.system(path)
 
+
+
+
+def files(file,table_name,db):
+    sql = """select * from {} where {}_nickname like "%{}%" """.format(table_name,table_name,file)
+    # print(sql)
+    res = db.execute(sql)
+    result = res.fetchall()
+    if len(result) == 0:
+        print("Nothing like that exists")
+        return
+    if len(result) > 1:
+        displayresult(result)
+        index = int(input("Which {}".format(file)))
+        file_name = result[index - 1][1]
+        location = result[index - 1][2]
+        location = check(location)
+        print(location)
+        # app=getDocumentapp(file_name,db)
+
+        # path =app+" "+ str(location.replace('\\','/')) + "\\" + str(file_name.replace('\\','/'))
+        # path=check(path)
+        file_name = check(file_name)
+        path = str(location.replace('\\', '/')) + "\\" + str(file_name.replace('\\', '/'))
+        print(path)
+        os.system(path)
+    else:
+        file_name = result[0][0]
+        location = result[0][1]
+        # app = getDocumentapp(file_name, db)
+        # path = app + " " + str(location.replace('\\', '/')) + "/" + str(file_name.replace('\\', '/'))
+        file_name = check(file_name)
+        path = str(location.replace('\\', '/')) + "\\" + str(file_name.replace('\\', '/'))
+        print(path)
+        os.system(path)
+
+
 def fileopen(file):
     conn = sqlite3.connect('disk.db')
     db = conn.cursor()
-    print("app" in file)
+    #print("app" in file)
+    tables = ['programs', 'document', 'videos', 'music', 'images', 'misc']
     if "app" in file:
         file=file.split("app ")[1]
         print(file)
-        program(file,db)
+        #program(file,db)
+        files(file,tables[0],db)
     elif "document" in file:
         file = file.split("document ")[1]
         print(file)
-        document(file,db)
+        #document(file,db)
+        files(file,tables[1],db)
     else:
         print("Sorry unable to understand the file type please try again using "+'\napp'+'\ndocument'+'\nat start')
 
